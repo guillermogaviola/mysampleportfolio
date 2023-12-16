@@ -30,15 +30,24 @@
 		    <div class="app-auth-body mx-auto">	
 			    <div class="app-auth-branding mb-4"><a class="app-logo" href="{{ url('login') }}"><img class="logo-icon me-2" src="{{ url('frontend/assets/img/20231125_204458.png') }}" alt="logo"></a></div>
 				<h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
+				@if (Session::has('success'))
+                    <div class="alert alert-success">{{ Session::get('success') }}</div>
+                @endif
 		        <div class="auth-form-container text-start">
-					<form class="auth-form login-form">         
+					<form class="auth-form login-form" method="post" action="{{ route('post.login') }}">         
 						<div class="email mb-3">
 							<label class="sr-only" for="signin-email">Email</label>
-							<input id="signin-email" name="signin-email" type="email" class="form-control signin-email" placeholder="Email address" required="required">
-						</div><!--//form-group-->
+							<input id="signin-email" name="signin-email" type="email" class="form-control signin-email" placeholder="Email address">
+						</div>
+						@if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @endif
 						<div class="password mb-3">
 							<label class="sr-only" for="signin-password">Password</label>
-							<input id="signin-password" name="signin-password" type="password" class="form-control signin-password" placeholder="Password" required="required">
+							<input id="signin-password" name="signin-password" type="password" class="form-control signin-password" placeholder="Password">
+							 @if ($errors->has('password'))
+                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                       		@endif
 							<div class="extra mt-3 row justify-content-between">
 								<div class="col-6">
 									<div class="form-check">
@@ -52,9 +61,9 @@
 									<div class="forgot-password text-end">
 										<a href="{{ url('forgot') }}">Forgot password?</a>
 									</div>
-								</div><!--//col-6-->
-							</div><!--//extra-->
-						</div><!--//form-group-->
+								</div>
+							</div>
+						</div>
 						<div class="text-center">
 							<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Log In</button>
 						</div>

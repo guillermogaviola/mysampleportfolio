@@ -29,22 +29,34 @@
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="{{ url('register') }}"><img class="logo-icon me-2" src="{{ url('frontend/assets/img/20231125_204458.png') }}" alt="logo"></a></div>
-					<h2 class="auth-heading text-center mb-4">Sign up to Portal</h2>					
-	
+					<h2 class="auth-heading text-center mb-4">Sign up to Portal</h2>
+					@if (Session::has('success'))
+                    <div class="alert alert-success">{{ Session::get('success') }}</div>
+                	@endif					
 					<div class="auth-form-container text-start mx-auto">
-						<form class="auth-form auth-signup-form">         
+						<form class="auth-form auth-signup-form" method="post" action="{{ route('post.register') }}">
+							@csrf
 							<div class="email mb-3">
-								<label class="sr-only" for="signup-email">Your Name</label>
-								<input id="signup-name" name="signup-name" type="text" class="form-control signup-name" placeholder="Full name" required="required">
+								<label class="sr-only" for="signup-email">Name</label>
+								<input id="signup-name" name="name" type="text" class="form-control signup-name" placeholder="Name">
 							</div>
+							@if ($errors->has('name'))
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                        	@endif
 							<div class="email mb-3">
-								<label class="sr-only" for="signup-email">Your Email</label>
-								<input id="signup-email" name="signup-email" type="email" class="form-control signup-email" placeholder="Email" required="required">
+								<label class="sr-only" for="signup-email">Email</label>
+								<input id="signup-email" name="email" type="email" class="form-control signup-email" placeholder="Email">
 							</div>
+							@if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        	@endif
 							<div class="password mb-3">
 								<label class="sr-only" for="signup-password">Password</label>
-								<input id="signup-password" name="signup-password" type="password" class="form-control signup-password" placeholder="Create a password" required="required">
+								<input id="signup-password" name="password" type="password" class="form-control signup-password" placeholder="Password">
 							</div>
+							@if ($errors->has('password'))
+                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                        	@endif
 							<div class="extra mb-3">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" value="" id="RememberPassword">
