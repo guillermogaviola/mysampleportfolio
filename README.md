@@ -1,2 +1,1 @@
-# my_first_project_sample
-This is my sample project in Laravel 10.
+This is my sample portfolio using Laravel 10.
